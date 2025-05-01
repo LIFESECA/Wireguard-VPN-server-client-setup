@@ -1,0 +1,15 @@
+[Interface]
+Address = 10.0.0.1/24
+SaveConfig = true
+ListenPort = 51820
+PrivateKey = SERVER_PRIVATE_KEY
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE#Change the lines to your keys and ip addr!
+[Interface]
+PrivateKey = CLIENT_PRIVATE_KEY
+Address = 10.0.0.2/24
+DNS = 136.243.235.225 , 10.202.10.10
+[Peer]
+PublicKey = SERVER_PUBLIC_KEY
+Endpoint = SERVER_IP_ADDRESS:51820
+AllowedIPs = 0.0.0.0/0
